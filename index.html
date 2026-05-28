@@ -213,10 +213,11 @@
             transform: translateY(-2px);
 
         }
+
         .about-section {
             padding: 20px 0;
         }
-        
+
         .about-heading {
             font-size: 2rem;
             margin-bottom: 20px;
@@ -275,136 +276,180 @@
                     <span id="greeting"></span>, I'm Anthony.
                 </h1>
 
-                <!-- Button to open the popup -->
-                <button class="Button" id="openPopup">Color Picker</button>
 
-                <!-- Popup container -->
-                <div id="popup" class="popup">
-                    <div class="popup-content">
-                        <span id="closePopup" class="close">&times;</span>
-                        <h2>Choose Text Color</h2>
-                        <div class="color-controls">
-                            <input type="range" id="colorSlider" min="0" max="100" value="50" class="slider">
+                <script>
+                    // Time-based greeting
+                    function setGreeting() {
+                        const greeting = document.getElementById('greeting');
+                        const hour = new Date().getHours();
+
+                        if (hour >= 5 && hour < 12) {
+                            greeting.textContent = "Good morning";
+                        } else if (hour >= 12 && hour < 18) {
+                            greeting.textContent = "Good afternoon";
+                        } else {
+                            greeting.textContent = "Good evening";
+                        }
+                    }
+
+                    setGreeting();
+                    setInterval(setGreeting, 60000);
+
+                    const introText = document.getElementById('introText');
+                    const colors = [
+                        '#FF5733', '#33FF57', '#3357FF', '#FF33F5', '#33FFF5',
+                        '#FFFFFF', '#F5FF33', '#9933FF', '#FF8333', '#33FF83', '#8333FF'
+                    ];
+                    let colorIndex = 0;
+
+                    function isMobile() {
+                        return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
+                    }
+
+                    if (isMobile()) {
+                        // On mobile: cycle colors every second
+                        setInterval(() => {
+                            introText.style.color = colors[colorIndex];
+                            colorIndex = (colorIndex + 1) % colors.length;
+                        }, 1000);
+                    } else {
+                        // On desktop: change color on mouseover, reset on mouseout
+                        introText.addEventListener('mousemove', function (e) {
+                            // Use mouse X position to pick color
+                            const rect = introText.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const percent = x / rect.width;
+                            const idx = Math.floor(percent * colors.length);
+                            introText.style.color = colors[idx];
+                        });
+                        introText.addEventListener('mouseleave', function () {
+                            introText.style.color = '';
+                        });
+                    }
+                </script>
+
+                <section class="projects-section">
+                    <h2 class="projects-heading">My Projects</h2>
+                    <a href="tic-tac-toe-game.html">
+                        <div class="project-card">
+                            <h3>Minimax Tic-Tac-Toe</h3>
+                            <p>This is a JavaScript implementation of 4x4 Tic-Tac-Toe using Minimax for AI player. I
+                                chose to do
+                                this in
+                                JS becuase
+                                I was tired of making terminal projects for course work.
+                            </p>
                         </div>
+                    </a>
+
+                    <a href="https://task-sync.me">
+                        <div class="project-card">
+                            <h3>Senior Capstone - TaskSync</h3>
+                            <p>
+                                TaskSync is a system that allows you to quickly add tasks, set priorities, and track
+                                progress with minimal effort. It also allows for collaboration. Create and share tasks
+                                with teammates. Assign responsibilities and stay in sync effortlessly.
+                            </p>
+                            <h2>Tech Stack</h2>
+                            <ul>
+                                <li>Azure & Digital Ocean</li>
+                                <li>Nextjs(React)</li>
+                                <li>Expressjs(Nodejs)</li>
+                                <li>Docker</li>
+                            </ul>
+                        </div>
+                    </a>
+
+                    <div class="project-card">
+                        <h3>3D Unity Game</h3>
+                        <p>More Info coming soon.
+                        </p>
                     </div>
-                </div>
+
+                </section>
+                <section class="about-section">
+                    <h2 class="about-heading">About Me</h2>
+                    <p>I have studied computer science at the University of Oklahoma and Oklahoma State University. At
+                        both institutions, I have developed skills in mathematics and computing. I was drawn to computer
+                        science as I have always enjoyed creating and making things. I've had a deep fascination with
+                        how things work and in many cases, software was the "how". I am gratefully employed by L3Harris,
+                        where I spend much of my time working in C++ with cutting-edge technology, surrounded by
+                        brilliant minds.
+                    </p>
+                    <p>In my free time, I enjoy fishing, reading, and spending time with friends and family. </p>
+                </section>
+                <p>
+                    This website is hosting GitHub Pages.
+                </p>
             </div>
-        </section>
 
-        <section class="projects-section">
-            <h2 class="projects-heading">My Projects</h2>
-            <a href="tic-tac-toe-game.html">
-                <div class="project-card">
-                    <h3>Minimax Tic-Tac-Toe</h3>
-                    <p>This is a JavaScript implementation of 4x4 Tic-Tac-Toe using Minimax for AI player. I chose to do
-                        this in
-                        JS becuase
-                        I was tired of making terminal projects for course work.
-                    </p>
-                </div>
-            </a>
-           
-            <a href="https://task-sync.me">
-                <div class="project-card">
-                  <h3>Senior Capstone - TaskSync</h3>
-                  <p>
-                    TaskSync is a system that allows you to quickly add tasks, set priorities, and track progress with minimal effort. It also allows for collaboration. Create and share tasks with teammates. Assign responsibilities and stay in sync effortlessly.
-                  </p>
-                  <h2>Tech Stack</h2>
-                  <ul>
-                    <li>Azure & Digital Ocean</li>
-                    <li>Nextjs(React)</li>
-                    <li>Expressjs(Nodejs)</li>
-                    <li>Docker</li>
-                  </ul>
-                </div>
-              </a>
-            
-                <div class="project-card">
-                    <h3>3D Unity Game</h3>
-                    <p>More Info coming soon.
-                    </p>
-                </div>
-            
-        </section>
-        <section class="about-section">
-            <h2 class="about-heading">About Me</h2>
-            <p>I have studied computer science at the University of Oklahoma and Oklahoma State University. At both institutions, I have developed skills in mathematics and computing. I was drawn to computer science as I have always enjoyed creating and making things. I've had a deep fascination with how things work and in many cases, software was the "how". I am gratefully employed by L3Harris, where I spend much of my time working in C++ with cutting-edge technology, surrounded by brilliant minds.
-            </p>
-            <p>In my free time, I enjoy fishing, reading, and spending time with friends and family. </p>
-        </section>
-        <p>
-            This website is hosting GitHub Pages.
-        </p>
-    </div>
+            <script>
+                // Time-based greeting
+                function setGreeting() {
+                    const greeting = document.getElementById('greeting');
+                    const hour = new Date().getHours();
 
-    <script>
-        // Time-based greeting
-        function setGreeting() {
-            const greeting = document.getElementById('greeting');
-            const hour = new Date().getHours();
+                    if (hour >= 5 && hour < 12) {
+                        greeting.textContent = "Good morning";
+                    } else if (hour >= 12 && hour < 18) {
+                        greeting.textContent = "Good afternoon";
+                    } else {
+                        greeting.textContent = "Good evening";
+                    }
+                }
 
-            if (hour >= 5 && hour < 12) {
-                greeting.textContent = "Good morning";
-            } else if (hour >= 12 && hour < 18) {
-                greeting.textContent = "Good afternoon";
-            } else {
-                greeting.textContent = "Good evening";
-            }
-        }
+                // Set greeting when page loads
+                setGreeting();
 
-        // Set greeting when page loads
-        setGreeting();
+                // Update greeting every minute (in case someone keeps the page open across time periods)
+                setInterval(setGreeting, 60000);
 
-        // Update greeting every minute (in case someone keeps the page open across time periods)
-        setInterval(setGreeting, 60000);
+                const colorSlider = document.getElementById('colorSlider');
+                const introText = document.getElementById('introText');
 
-        const colorSlider = document.getElementById('colorSlider');
-        const introText = document.getElementById('introText');
+                // Array of colors to cycle through
+                const colors = [
+                    '#FF5733', // Red-Orange
+                    '#33FF57', // Green
+                    '#3357FF', // Blue
+                    '#FF33F5', // Pink
+                    '#33FFF5', // Cyan
+                    '#FFFFFF', // White
+                    '#F5FF33', // Yellow
+                    '#9933FF', // Purple
+                    '#FF8333', // Orange
+                    '#33FF83', // Mint
+                    '#8333FF'  // Violet
+                ];
 
-        // Array of colors to cycle through
-        const colors = [
-            '#FF5733', // Red-Orange
-            '#33FF57', // Green
-            '#3357FF', // Blue
-            '#FF33F5', // Pink
-            '#33FFF5', // Cyan
-            '#FFFFFF', // White
-            '#F5FF33', // Yellow
-            '#9933FF', // Purple
-            '#FF8333', // Orange
-            '#33FF83', // Mint
-            '#8333FF'  // Violet
-        ];
+                colorSlider.addEventListener('input', function () {
+                    // Map slider value (0-100) to an index in the colors array
+                    const index = Math.floor(this.value / (100 / colors.length));
+                    introText.style.color = colors[index];
+                })
+                // Get references to the popup and buttons
+                const popup = document.getElementById("popup");
+                const openPopupButton = document.getElementById("openPopup");
+                const closePopupButton = document.getElementById("closePopup");
 
-        colorSlider.addEventListener('input', function () {
-            // Map slider value (0-100) to an index in the colors array
-            const index = Math.floor(this.value / (100 / colors.length));
-            introText.style.color = colors[index];
-        })
-        // Get references to the popup and buttons
-        const popup = document.getElementById("popup");
-        const openPopupButton = document.getElementById("openPopup");
-        const closePopupButton = document.getElementById("closePopup");
+                // Open the popup
+                openPopupButton.addEventListener("click", () => {
+                    popup.style.display = "block";
+                    setTimeout(() => popup.classList.add("show"), 10);
+                });
 
-        // Open the popup
-        openPopupButton.addEventListener("click", () => {
-            popup.style.display = "block";
-            setTimeout(() => popup.classList.add("show"), 10);
-        });
+                closePopupButton.addEventListener("click", () => {
+                    popup.classList.remove("show");
+                    setTimeout(() => popup.style.display = "none", 300);
+                });
 
-        closePopupButton.addEventListener("click", () => {
-            popup.classList.remove("show");
-            setTimeout(() => popup.style.display = "none", 300);
-        });
-
-        // Close the popup if the user clicks outside of it
-        window.addEventListener("click", (event) => {
-            if (event.target === popup) {
-                popup.style.display = "none";
-            }
-        });
-    </script>
+                // Close the popup if the user clicks outside of it
+                window.addEventListener("click", (event) => {
+                    if (event.target === popup) {
+                        popup.style.display = "none";
+                    }
+                });
+            </script>
 </body>
 
 </html>
